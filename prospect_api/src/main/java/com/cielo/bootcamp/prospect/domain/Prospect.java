@@ -1,5 +1,6 @@
 package com.cielo.bootcamp.prospect.domain;
 
+import com.cielo.bootcamp.prospect.application.dtos.ProspectDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,6 +20,8 @@ public class Prospect {
 
     private String document;
 
+    private String name;
+
     private String MCC;
 
     private String contactDocument;
@@ -28,6 +31,16 @@ public class Prospect {
     private String contactEmail;
 
     @Enumerated
-    private ProspectType prospectType;
+    private ClientType clientType;
+
+    public Prospect(ProspectDTO prospectDTO) {
+        this.name = prospectDTO.name();
+        this.document = prospectDTO.document();
+        this.MCC = prospectDTO.MCC();
+        this.contactDocument = prospectDTO.contactDocument();
+        this.contactName = prospectDTO.contactName();
+        this.contactEmail = prospectDTO.contactEmail();
+        this.clientType = prospectDTO.clientType();
+    }
 
 }
