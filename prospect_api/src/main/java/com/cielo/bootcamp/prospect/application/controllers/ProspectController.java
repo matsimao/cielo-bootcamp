@@ -35,7 +35,7 @@ public class ProspectController {
     }
 
     @PostMapping
-    public ResponseEntity<Prospect> create(@RequestBody ProspectDTO prospectDTO) {
+    public ResponseEntity<Prospect> create(@RequestBody ProspectDTO prospectDTO) throws Exception{
         Prospect prospect = this.service.save(prospectDTO);
 
         return new ResponseEntity<>(prospect, HttpStatus.CREATED);
