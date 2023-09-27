@@ -2,6 +2,7 @@ package com.cielo.bootcamp.prospect.application.controllers;
 
 import com.cielo.bootcamp.prospect.application.dtos.ProspectDTO;
 import com.cielo.bootcamp.prospect.application.services.ProspectService;
+import com.cielo.bootcamp.prospect.application.services.ProspectQueueService;
 import com.cielo.bootcamp.prospect.domain.Prospect;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -18,7 +19,10 @@ import java.util.List;
 public class ProspectController {
 
     @Autowired
-    private ProspectService service;
+    private ProspectService prospectService;
+
+    @Autowired
+    private ProspectQueueService prospectQueueService;
 
     @GetMapping
     @Operation(summary = "Get the list of prospects")
@@ -26,7 +30,7 @@ public class ProspectController {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved all prospects")
     })
     public ResponseEntity<List<Prospect>> getAll() {
-        List<Prospect> prospectList = this.service.findAll();
+        List<Prospect> prospectList = this.prospectService.findAll();
 
         return new ResponseEntity<>(prospectList, HttpStatus.OK);
     }
@@ -39,7 +43,8 @@ public class ProspectController {
     })
     public ResponseEntity<Prospect> get(@PathVariable Long prospectId) {
         try {
-            Prospect prospect = this.service.findProspectById(prospectId);
+            Prospect prospect = this.prospectService.findProspectById(prospectId);
+
             return new ResponseEntity<>(prospect, HttpStatus.OK);
         } catch (Exception exception) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -52,7 +57,9 @@ public class ProspectController {
             @ApiResponse(responseCode = "201", description = "Prospect registration successfully completed")
     })
     public ResponseEntity<Prospect> create(@RequestBody ProspectDTO prospectDTO) throws Exception{
-        Prospect prospect = this.service.save(prospectDTO);
+        Prospect prospect = this.prospectService.save(prospectDTO);
+
+        this.prospectQueueService.add(prospect);
 
         return new ResponseEntity<>(prospect, HttpStatus.CREATED);
     }
@@ -65,7 +72,10 @@ public class ProspectController {
     })
     public ResponseEntity<Prospect> update(@PathVariable Long prospectId, @RequestBody ProspectDTO prospectDTO) throws Exception {
         try {
-            Prospect prospect = this.service.update(prospectId, prospectDTO);
+            Prospect prospect = this.prospectService.update(prospectId, prospectDTO);
+
+            this.prospectQueueService.removeQueue(prospect.getId());
+            this.prospectQueueService.add(prospect);
 
             return new ResponseEntity<>(prospect, HttpStatus.OK);
         } catch (Exception exception) {
@@ -81,7 +91,9 @@ public class ProspectController {
     })
     public ResponseEntity<Void> delete(@PathVariable Long prospectId) {
         try {
-            this.service.delete(prospectId);
+            this.prospectService.delete(prospectId);
+
+            this.prospectQueueService.removeQueue(prospectId);
 
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception exception) {
