@@ -67,13 +67,13 @@ public class ProspectService {
     public Prospect update(Long id, ProspectDTO prospectDTO) throws Exception{
         Prospect prospect = this.findProspectById(id);
 
-        prospect.setName(prospectDTO.name());
-        prospect.setMCC(prospectDTO.MCC());
-        prospect.setDocument(prospectDTO.document());
-        prospect.setContactDocument(prospectDTO.contactDocument());
-        prospect.setContactName(prospectDTO.contactName());
-        prospect.setContactEmail(prospectDTO.contactEmail());
-        prospect.setClientType(prospectDTO.clientType());
+        if (prospectDTO.name() != null) prospect.setName(prospectDTO.name());
+        if (prospectDTO.MCC() != null) prospect.setMCC(prospectDTO.MCC());
+        if (prospectDTO.document() != null) prospect.setDocument(prospectDTO.document());
+        if (prospectDTO.contactDocument() != null) prospect.setContactDocument(prospectDTO.contactDocument());
+        if (prospectDTO.contactName() != null) prospect.setContactName(prospectDTO.contactName());
+        if (prospectDTO.contactEmail() != null) prospect.setContactEmail(prospectDTO.contactEmail());
+        if (prospectDTO.clientType() != null) prospect.setClientType(prospectDTO.clientType());
 
         this.validateProspect(prospect);
         return this.repository.save(prospect);
