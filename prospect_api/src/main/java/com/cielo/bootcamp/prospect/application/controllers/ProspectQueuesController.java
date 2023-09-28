@@ -3,6 +3,7 @@ package com.cielo.bootcamp.prospect.application.controllers;
 import com.cielo.bootcamp.prospect.application.services.ProspectQueueService;
 import com.cielo.bootcamp.prospect.domain.Prospect;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class ProspectQueuesController {
     @Operation(summary = "Retrieve the first queue prospect")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved the first queue prospect"),
-            @ApiResponse(responseCode = "204", description = "Queues prospect is empty")
+            @ApiResponse(responseCode = "204", description = "Queues prospect is empty", content = @Content)
     })
     public ResponseEntity<Prospect> retrieveQueue() {
         if (this.prospectQueueService.length() <= 0) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
