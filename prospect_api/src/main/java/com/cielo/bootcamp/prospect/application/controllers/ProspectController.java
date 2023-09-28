@@ -5,6 +5,7 @@ import com.cielo.bootcamp.prospect.application.services.ProspectService;
 import com.cielo.bootcamp.prospect.application.services.ProspectQueueService;
 import com.cielo.bootcamp.prospect.domain.Prospect;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,16 +40,12 @@ public class ProspectController {
     @Operation(summary = "Get the a specific prospect")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved the specific prospect"),
-            @ApiResponse(responseCode = "404", description = "Prospect not found")
+            @ApiResponse(responseCode = "404", description = "Prospect not found", content = @Content)
     })
-    public ResponseEntity<Prospect> get(@PathVariable Long prospectId) {
-        try {
-            Prospect prospect = this.prospectService.findProspectById(prospectId);
+    public ResponseEntity<Prospect> get(@PathVariable Long prospectId) throws Exception{
+        Prospect prospect = this.prospectService.findProspectById(prospectId);
 
-            return new ResponseEntity<>(prospect, HttpStatus.OK);
-        } catch (Exception exception) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>(prospect, HttpStatus.OK);
     }
 
     @PostMapping
@@ -68,36 +65,28 @@ public class ProspectController {
     @Operation(summary = "Update the a specific prospect")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Specific prospect successfully updated"),
-            @ApiResponse(responseCode = "404", description = "Prospect not found")
+            @ApiResponse(responseCode = "404", description = "Prospect not found", content = @Content)
     })
     public ResponseEntity<Prospect> update(@PathVariable Long prospectId, @RequestBody ProspectDTO prospectDTO) throws Exception {
-        try {
-            Prospect prospect = this.prospectService.update(prospectId, prospectDTO);
+        Prospect prospect = this.prospectService.update(prospectId, prospectDTO);
 
-            this.prospectQueueService.removeQueue(prospect.getId());
-            this.prospectQueueService.add(prospect);
+        this.prospectQueueService.removeQueue(prospect.getId());
+        this.prospectQueueService.add(prospect);
 
-            return new ResponseEntity<>(prospect, HttpStatus.OK);
-        } catch (Exception exception) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>(prospect, HttpStatus.OK);
     }
 
     @DeleteMapping("/{prospectId}")
     @Operation(summary = "Delete the a specific prospect")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Specific prospect successfully deleted"),
-            @ApiResponse(responseCode = "404", description = "Prospect not found")
+            @ApiResponse(responseCode = "404", description = "Prospect not found", content = @Content)
     })
-    public ResponseEntity<Void> delete(@PathVariable Long prospectId) {
-        try {
-            this.prospectService.delete(prospectId);
+    public ResponseEntity<Void> delete(@PathVariable Long prospectId) throws Exception{
+        this.prospectService.delete(prospectId);
 
-            this.prospectQueueService.removeQueue(prospectId);
+        this.prospectQueueService.removeQueue(prospectId);
 
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception exception) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

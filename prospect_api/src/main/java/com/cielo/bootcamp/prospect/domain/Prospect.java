@@ -32,12 +32,12 @@ public class Prospect {
 
     @NotBlank(message = "O campo 'MCC' não pode estar em branco")
     @Size(min = 1, max = 4, message = "O campo 'MCC' deve ter entre 1 e 4 caracteres")
-    @Pattern(regexp = "\\d{1,4}")
+    @Pattern(regexp = "\\d{1,4}", message = "O campo 'MCC' deve corresponder a \\\\d{1,4}")
     private String MCC;
 
     @NotBlank(message = "O campo 'contactDocument' não pode estar em branco")
     @Size(min = 1, max = 11, message = "O campo 'contactDocument' deve ter entre 1 e 11 caracteres")
-    @Pattern(regexp = "\\d{1,11}")
+    @Pattern(regexp = "\\d{1,11}",  message = "O campo 'contactDocument' deve corresponder a \\\\d{1,11}")
     private String contactDocument;
 
     @NotBlank(message = "O campo 'contactName' não pode estar em branco")
@@ -45,8 +45,11 @@ public class Prospect {
     private String contactName;
 
     @NotBlank(message = "O campo 'contactEmail' não pode estar em branco")
-    @Email
-    @Pattern(regexp = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")
+    @Email(message = "O campo 'email' deve ser um email")
+    @Pattern(
+            regexp = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$",
+            message = "O campo 'email' deve corresponder a \\\"^([a-zA-Z0-9_\\\\-\\\\.]+)@([a-zA-Z0-9_\\\\-\\\\.]+)\\\\.([a-zA-Z]{2,5})$\\\""
+    )
     private String contactEmail;
 
     @Enumerated
