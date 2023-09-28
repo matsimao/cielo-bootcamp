@@ -4,12 +4,14 @@ import com.cielo.bootcamp.prospect.application.dtos.ProspectDTO;
 import com.cielo.bootcamp.prospect.application.repositories.ProspectRepository;
 import com.cielo.bootcamp.prospect.domain.ClientType;
 import com.cielo.bootcamp.prospect.domain.Prospect;
+import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -39,10 +41,11 @@ public class ProspectService {
         }
 
         if (errors.hasErrors()) {
+            List<String> listErrors = new ArrayList<>();
             for (ObjectError error : errors.getAllErrors()) {
-                LOG.error(error.getDefaultMessage());
+                listErrors.add(error.getDefaultMessage());
             }
-            throw new Exception("A validação falhou.");
+            throw new Exception(String.join(", ", listErrors));
         }
     }
 
@@ -50,7 +53,7 @@ public class ProspectService {
         return this
                 .repository
                 .findProspectById(id)
-                .orElseThrow(() -> new Exception("Prospect not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Prospect não encontrado"));
     }
 
     public List<Prospect> findAll() {
