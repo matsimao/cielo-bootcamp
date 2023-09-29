@@ -1,4 +1,4 @@
-import { Box, Button, CardActions, Chip, Divider } from "@mui/material"
+import { Box, Button, CardActions, Chip, Divider, Grid } from "@mui/material"
 import Card from "@mui/material/Card"
 import CardContent from "@mui/material/CardContent"
 import Typography from "@mui/material/Typography"
@@ -37,53 +37,59 @@ const Client = ({client, isQueue}) => {
     return(
         <>
             {open ? <Modal setOpen={setOpen} open={open} client={client}/> : ""}
-            <Card key={Math.random()} variant="outlined">
-                <CardActions disableSpacing style={{ justifyContent: "space-between", height: 40}}>
-
-                    <Chip 
-                        label={client.clientType.replace("_", " ")} 
-                        color={client.clientType === "BUSINESS_CUSTOMER" ? "secondary" : "primary"} />
-                    <CardContent style={{textAlign: "center"}}>
-                        <Typography gutterBottom variant="h5" component="div">
-                            {client.name}
-                        </Typography>
-                    </CardContent>
-                    {
-                        (!isQueue && client.id) ? (
-                            <Box>
-                                <Button size="small" variant="outlined" onClick={handleClick}>Edit</Button>
-                                <Button size="small" color="error" variant="outlined" onClick={_ => handleClickDelete(client)}>Delete</Button>
-                            </Box>
-                        ): 
-                        <Chip 
-                            label="WAITING FOR CONTACT"
-                            color='warning' />
-                    }
+            <Card key={Math.random()} title={`Information about prospect ${client.document}`} variant="outlined">
+                <CardActions disableSpacing style={{ justifyContent: "space-between"}}>
+                    <Grid container>
+                        <Grid item md={4} xs={12} style={{margin: 0}}>
+                            <Chip 
+                                title={`Prospect type is ${client.clientType.replace("_", " ")}`}
+                                label={client.clientType.replace("_", " ")} 
+                                color={client.clientType === "BUSINESS_CUSTOMER" ? "secondary" : "primary"} />
+                        </Grid>
+                        <Grid item md={4} xs={12} style={{margin: 0}}>
+                            <Typography gutterBottom variant="h5" component="div">
+                                {client.name}
+                            </Typography>
+                        </Grid>
+                        <Grid item md={4} xs={12} style={{margin: 0}}>
+                        {
+                            (!isQueue && client.id) ? (
+                                <Box>
+                                    <Button title={`Edit prospect: ${client.document}`} size="small" style={{margin: 2}} variant="outlined" onClick={handleClick}>Edit</Button>
+                                    <Button title={`Delete prospect: ${client.document}`} size="small" style={{margin: 2}} color="error" variant="outlined" onClick={_ => handleClickDelete(client)}>Delete</Button>
+                                </Box>
+                            ): 
+                            <Chip 
+                                label="WAITING FOR CONTACT"
+                                color='warning' />
+                        }
+                        </Grid>
+                    </Grid>
                 </CardActions>
                 <CardContent >
                     <div style={{textAlign: "left"}}>
-                        <Typography gutterBottom variant="body1" component="div">
+                        <Typography title={`Prospect name is ${client.name}`} gutterBottom variant="body1" component="div">
                             Name: {client.name}
                         </Typography>
-                        <Typography gutterBottom variant="body1" component="div">
+                        <Typography title={`Prospect document is ${client.document}`} gutterBottom variant="body1" component="div">
                             Document: {client.document}
                         </Typography>
-                        <Typography gutterBottom variant="body1" component="div">
+                        <Typography title={`Prospect MCC is ${client.mcc}`} gutterBottom variant="body1" component="div">
                             MCC: {client.mcc}
                         </Typography>
                         {client.clientType === "BUSINESS_CUSTOMER" ?
                             (
                                 <>
-                                    <Typography gutterBottom variant="body1" component="div">
+                                    <Typography title={`Prospect contact name is ${client.contactName}`} gutterBottom variant="body1" component="div">
                                         Contact Name: {client.contactName}
                                     </Typography>
-                                    <Typography gutterBottom variant="body1" component="div">
+                                    <Typography title={`Prospect contact document is ${client.contactDocument}`} gutterBottom variant="body1" component="div">
                                         Contact Document: {client.contactDocument}
                                     </Typography>
                                 </>
                             )
                         : ""}
-                        <Typography gutterBottom variant="body1" component="div">
+                        <Typography title={`Prospect contact email is ${client.contactEmail}`} gutterBottom variant="body1" component="div">
                             Contact Email: {client.contactEmail}
                         </Typography>
                     </div>

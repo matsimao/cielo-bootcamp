@@ -80,7 +80,12 @@ const Prospect = () => {
                 }
             }>
                 <Scrollable style={{ textAlign: "center" }}>
-                    <CardActions disableSpacing onClick={handleExpandQueueClick} style={{ justifyContent: "space-between", padding: 0 }}>
+                    <CardActions 
+                        title="Show prospect queue"
+                        disableSpacing
+                        onClick={handleExpandQueueClick} 
+                        style={{ justifyContent: "space-between", padding: 0 }}
+                    >
                         <CardContent align={'center'}>
                             <Typography variant="h5" color="text.primary" alignContent="center">
                                 Queue List
@@ -104,7 +109,12 @@ const Prospect = () => {
                         }).map(client => <Client key={contador++} client={client} isQueue={true} />)}
                     </Collapse>
 
-                    <CardActions disableSpacing onClick={handleExpandProspectClick} style={{ justifyContent: "space-between", padding: 0 }}>
+                    <CardActions 
+                        title="Show prospect list"
+                        disableSpacing 
+                        onClick={handleExpandProspectClick} 
+                        style={{ justifyContent: "space-between", padding: 0 }}
+                    >
                         <CardContent align={'center'}>
                             <Typography variant="h5" color="text.primary" alignContent="center">
                                 Prospect List

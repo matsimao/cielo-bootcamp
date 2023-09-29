@@ -96,7 +96,7 @@ const Modal = ({ open, setOpen, client }) => {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 400,
+        width: 300,
         bgcolor: 'background.paper',
         boxShadow: 24,
         p: 4,
@@ -114,8 +114,13 @@ const Modal = ({ open, setOpen, client }) => {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
+                    <div style={{textAlign: "center"}}>
+                        <Typography variant="h5" color="text.primary" alignContent="center">
+                            Edit prospect
+                        </Typography>
+                    </div>
                     <Autocomplete
-
+                        title="Prospect type"
                         disablePortal
                         onChange={(e, newValue) => setClientType(newValue?.id)}
                         options={optionsClientType}
@@ -125,41 +130,66 @@ const Modal = ({ open, setOpen, client }) => {
                     {clientType ? (
                         <>
                             <TextField
+                                title="Prospect name"
                                 variant="standard"
                                 value={name}
-                                onChange={e => setName(e.target.value)}
+                                onChange={e => {
+                                    if (e.target.value.length > 50) return;
+                                    setName(e.target.value)}
+                                }
                                 label={"Name"}
                             />
 
                             <TextField
+                                title="Prospect document"
                                 variant="standard"
                                 value={document}
-                                onChange={e => setDocument(_ => {
-                                    return e.target.value.replace(/[^0-9]+/g, '');
-                                })}
+                                onChange={e => {
+                                    if (clientType == "BUSINESS_CUSTOMER" && e.target.value.toString().length > 13) return;
+                                    if (clientType == "INDIVIDUAL_CUSTOMER" && e.target.value.toString().length > 11) return;
+    
+                                    setDocument(_ => {
+                                        return e.target.value.replace(/[^0-9]+/g, '');
+                                    })
+                                }}
                                 label={"Document"}
                             />
 
                             <TextField
+                                title="Prospect MCC"
                                 variant="standard"
                                 value={MCC}
-                                onChange={e => setMCC(e.target.value.replace(/[^0-9]+/g, ''))}
+                                onChange={e => {
+                                    if (e.target.value.length > 4) return;
+                                    setMCC(_ => e.target.value.replace(/[^0-9]+/g, ''))}
+                                }
                                 label={"MCC"}
                             />
 
                             {clientType === "BUSINESS_CUSTOMER" ? (
                                 <>
                                     <TextField
+                                        title="Prospect contact name"
                                         variant="standard"
                                         value={contactName}
-                                        onChange={e => setContactName(e.target.value)}
+                                        onChange={e => {
+                                            if (e.target.value.length > 50) return;
+                                            setContactName(e.target.value)}
+                                        }
                                         label={"Contact Name"}
                                     />
 
                                     <TextField
+                                        title="Prospect contact document"
                                         variant="standard"
                                         value={contactDocument}
-                                        onChange={e => setContactDocument(e.target.value.replace(/[^0-9]+/g, ''))}
+                                        onChange={e => {
+                                            if (e.target.value.toString().length > 11) return;
+            
+                                            setContactDocument(_ => {
+                                                return e.target.value.replace(/[^0-9]+/g, '');
+                                            })
+                                        }}
                                         label={"Contact Document"}
                                     />
                                 </>
@@ -167,6 +197,7 @@ const Modal = ({ open, setOpen, client }) => {
 
 
                             <TextField
+                                title="Prospect contact email"
                                 variant="standard"
                                 value={contactEmail}
                                 onChange={e => setContactEmail(e.target.value)}
@@ -174,6 +205,7 @@ const Modal = ({ open, setOpen, client }) => {
                             />
 
                             <Button
+                                title="Update prospect"
                                 onClick={handleClickSave}
                                 variant="outlined"
                                 size="large"
