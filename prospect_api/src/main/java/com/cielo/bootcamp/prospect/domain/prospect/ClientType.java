@@ -1,4 +1,4 @@
-package com.cielo.bootcamp.prospect.domain;
+package com.cielo.bootcamp.prospect.domain.prospect;
 
 public enum ClientType {
     INDIVIDUAL_CUSTOMER,
