@@ -24,6 +24,7 @@ public class Prospect {
 
     @NotBlank(message = "This field 'document' is empty")
     @Pattern(regexp = "\\d{1,13}", message = "This field 'document' is invalid")
+    @Column(unique = true)
     private String document;
 
     @NotBlank(message = "This field 'name' is empty")
