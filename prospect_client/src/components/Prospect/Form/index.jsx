@@ -1,7 +1,7 @@
 import Autocomplete from "@mui/material/Autocomplete";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField"
+import Grid from "@mui/material/Grid"
 
 import { useContext } from "react";
 import { useState } from "react"
@@ -59,27 +59,30 @@ const Form = _ => {
     return (
         <>
             {open ? <Modal setOpen={setOpen} open={open} /> : ""}
-            <Box
-                component="form"
-                sx={{
-                    '& > :not(style)': { m: 1, width: '25ch' },
-                    display: "inline",
-                }}
-                noValidate
-                autoComplete="off">
-                <Button
-                    onClick={handleClickNewProspect}
-                    variant="outlined"
-                    size="large"
-                    style={{ width: "48%" }}
-                >Create new prospect</Button>
-                <Button
-                    onClick={handleClickRetrieveProspect}
-                    variant="outlined"
-                    size="large"
-                    style={{ width: "48%" }}
-                >Retrieve prospect</Button>
-            </Box>
+
+                <Grid container>
+                    <Grid item md={6} xs={12} style={{margin: 0, textAlign: "center"}}>
+                        <Button
+                            title="Create new prospect"
+                            onClick={handleClickNewProspect}
+                            variant="outlined"
+                            size="large"
+                            style={{ width: "95%" }}
+                        >Create new prospect</Button>
+                    </Grid>
+
+                    <Grid item md={6} xs={12} style={{margin: 0, textAlign: "center"}}>
+                        <Button
+                            title="Retrieve prospect on queue"
+                            onClick={handleClickRetrieveProspect}
+                            variant="outlined"
+                            size="large"
+                            style={{ width: "95%" }}
+                        >Retrieve prospect</Button>
+                    </Grid>
+                </Grid>
+                
+                
         </>
     )
 }
