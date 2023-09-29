@@ -63,8 +63,15 @@ public class ProspectService {
     public Prospect save(ProspectDTO prospectDTO) throws Exception{
         Prospect prospect = new Prospect(prospectDTO);
 
+        if (prospect.getClientType() == ClientType.INDIVIDUAL_CUSTOMER)
+            prospect.setDocument(String.format("%011d", Long.parseLong(prospect.getDocument())));
+        else
+            prospect.setDocument(String.format("%013d", Long.parseLong(prospect.getDocument())));
+
+        prospect.setContactDocument(String.format("%011d", Long.parseLong(prospect.getContactDocument())));
+
         this.validateProspect(prospect);
-        return  this.repository.save(new Prospect(prospectDTO));
+        return  this.repository.save(prospect);
     }
 
     public Prospect update(Long id, ProspectDTO prospectDTO) throws Exception{
@@ -78,6 +85,12 @@ public class ProspectService {
         if (prospectDTO.contactEmail() != null) prospect.setContactEmail(prospectDTO.contactEmail());
         if (prospectDTO.clientType() != null) prospect.setClientType(prospectDTO.clientType());
 
+        if (prospect.getClientType() == ClientType.INDIVIDUAL_CUSTOMER)
+            prospect.setDocument(String.format("%011d", Long.parseLong(prospect.getDocument())));
+        else
+            prospect.setDocument(String.format("%013d", Long.parseLong(prospect.getDocument())));
+
+        prospect.setContactDocument(String.format("%011d", Long.parseLong(prospect.getContactDocument())));
         this.validateProspect(prospect);
         return this.repository.save(prospect);
     }
