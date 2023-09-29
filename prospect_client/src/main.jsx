@@ -1,10 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
 import './index.css'
+import { Card, Container } from '@mui/material'
+import Prospect from './components/Prospect'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <Container>
+        <Card sx={{ padding: 5 }}>
+            <Prospect />
+        </Card>
+    </Container>
 )

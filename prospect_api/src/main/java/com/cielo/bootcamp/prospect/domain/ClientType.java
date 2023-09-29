@@ -1,6 +1,6 @@
 package com.cielo.bootcamp.prospect.domain;
 
-public enum ProspectType {
+public enum ClientType {
     INDIVIDUAL_CUSTOMER,
     BUSINESS_CUSTOMER
 }
