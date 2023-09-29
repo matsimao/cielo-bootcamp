@@ -22,33 +22,33 @@ public class Prospect {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "O campo 'document' não pode estar em branco")
-    @Pattern(regexp = "\\d{1,13}")
+    @NotBlank(message = "This field 'document' is empty")
+    @Pattern(regexp = "\\d{1,13}", message = "This field 'document' is invalid")
     private String document;
 
-    @NotBlank(message = "O campo 'name' não pode estar em branco")
-    @Size(min = 1, max = 50, message = "O campo 'name' deve ter entre 1 e 50 caracteres")
+    @NotBlank(message = "This field 'name' is empty")
+    @Size(min = 1, max = 50, message = "This field 'name' must be between 1 and 50 characters")
     private String name;
 
-    @NotBlank(message = "O campo 'MCC' não pode estar em branco")
-    @Size(min = 1, max = 4, message = "O campo 'MCC' deve ter entre 1 e 4 caracteres")
-    @Pattern(regexp = "\\d{1,4}", message = "O campo 'MCC' deve corresponder a \\\\d{1,4}")
+    @NotBlank(message = "This field 'MCC' is empty")
+    @Size(min = 1, max = 4, message = "This field 'MCC' must be between 1 and 4 characters")
+    @Pattern(regexp = "\\d{1,4}", message = "This field 'MCC' is invalid")
     private String MCC;
 
-    @NotBlank(message = "O campo 'contactDocument' não pode estar em branco")
-    @Size(min = 1, max = 11, message = "O campo 'contactDocument' deve ter entre 1 e 11 caracteres")
-    @Pattern(regexp = "\\d{1,11}",  message = "O campo 'contactDocument' deve corresponder a \\\\d{1,11}")
+    @NotBlank(message = "This field 'contactDocument' is empty")
+    @Size(min = 1, max = 11, message = "This field 'contactDocument' must be between 1 and 11 characters")
+    @Pattern(regexp = "\\d{1,11}",  message = "This field 'contactDocument' is invalid")
     private String contactDocument;
 
-    @NotBlank(message = "O campo 'contactName' não pode estar em branco")
-    @Size(min = 1, max = 50, message = "O campo 'contactName' deve ter entre 1 e 50 caracteres")
+    @NotBlank(message = "This field 'contactName' is empty")
+    @Size(min = 1, max = 50, message = "This field 'contactName' must be between 1 and 50 characters")
     private String contactName;
 
-    @NotBlank(message = "O campo 'contactEmail' não pode estar em branco")
-    @Email(message = "O campo 'email' deve ser um email")
+    @NotBlank(message = "This field 'contactEmail' is empty")
+    @Email(message = "This field 'email' deve ser um email")
     @Pattern(
             regexp = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$",
-            message = "O campo 'email' deve corresponder a \\\"^([a-zA-Z0-9_\\\\-\\\\.]+)@([a-zA-Z0-9_\\\\-\\\\.]+)\\\\.([a-zA-Z]{2,5})$\\\""
+            message = "This field 'email' is invalid"
     )
     private String contactEmail;
 

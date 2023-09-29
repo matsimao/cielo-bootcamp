@@ -32,11 +32,11 @@ public class ProspectService {
 
         if (prospect.getClientType() == ClientType.INDIVIDUAL_CUSTOMER) {
             if (prospect.getDocument().length() > 11) {
-                errors.rejectValue("document", "length.exceeded", "O campo 'document' deve ter entre 1 e 11 caracteres");
+                errors.rejectValue("document", "length.exceeded", "This field 'contactDocument' must be between 1 and 11 characters");
             }
         } else {
             if (prospect.getDocument().length() > 13) {
-                errors.rejectValue("document", "length.exceeded", "O campo 'document' deve ter entre 1 e 13 caracteres");
+                errors.rejectValue("document", "length.exceeded", "This field 'contactDocument' must be between 1 and 13 characters");
             }
         }
 
@@ -53,7 +53,7 @@ public class ProspectService {
         return this
                 .repository
                 .findProspectById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Prospect não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Prospect not found"));
     }
 
     public List<Prospect> findAll() {
