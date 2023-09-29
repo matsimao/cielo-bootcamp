@@ -75,7 +75,6 @@ const Modal = ({ open, setOpen }) => {
 
             })
             .catch(e => {
-                console.log(e);
                 Swal.fire({
                     icon: "error",
                     html: `<div style="width: 100%; text-align: left">${e.response.data.message.split(',').join('<br>')}</div>`

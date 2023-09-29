@@ -1,8 +1,10 @@
-import { Button, CardActions, Chip, Divider } from "@mui/material"
+import { Box, Button, CardActions, Chip, Divider } from "@mui/material"
 import Card from "@mui/material/Card"
 import CardContent from "@mui/material/CardContent"
 import Typography from "@mui/material/Typography"
 import { useState } from "react"
+import Swal from "sweetalert2"
+import { useFetch } from "../../../hooks/useFetchAxios"
 import Modal from "./Modal"
 
 const Client = ({client, isQueue}) => {
@@ -10,6 +12,26 @@ const Client = ({client, isQueue}) => {
 
     const handleClick = _ => {
         setOpen(true);
+    }
+
+    const handleClickDelete = ({id}) => {
+        Swal.fire({
+            text: 'Are you sure?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'Confirm',
+            cancelButtonText: `Cancel`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                useFetch({path: `/prospects/${id}`, method: 'delete'})
+                    .then(response => {
+                        if (response.status === 200) {
+                            loadParent()
+                        }
+                    });
+            }
+        })
     }
 
     return(
@@ -27,8 +49,12 @@ const Client = ({client, isQueue}) => {
                         </Typography>
                     </CardContent>
                     {
-                        !isQueue ? 
-                        <Button size="small" variant="outlined" onClick={handleClick}>Editar</Button> : 
+                        (!isQueue && client.id) ? (
+                            <Box>
+                                <Button size="small" variant="outlined" onClick={handleClick}>Edit</Button>
+                                <Button size="small" color="error" variant="outlined" onClick={_ => handleClickDelete(client)}>Delete</Button>
+                            </Box>
+                        ): 
                         <Chip 
                             label="WAITING FOR CONTACT"
                             color='warning' />
