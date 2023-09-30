@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,6 +54,7 @@ public class ProspectController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Prospect registration successfully completed")
     })
+    @Transactional
     public ResponseEntity<Prospect> create(@RequestBody ProspectDTO prospectDTO) throws Exception{
         Prospect prospect = this.prospectService.save(prospectDTO);
 
@@ -67,6 +69,7 @@ public class ProspectController {
             @ApiResponse(responseCode = "200", description = "Specific prospect successfully updated"),
             @ApiResponse(responseCode = "404", description = "Prospect not found", content = @Content)
     })
+    @Transactional
     public ResponseEntity<Prospect> update(@PathVariable Long prospectId, @RequestBody ProspectDTO prospectDTO) throws Exception {
         Prospect prospect = this.prospectService.update(prospectId, prospectDTO);
 
@@ -82,6 +85,7 @@ public class ProspectController {
             @ApiResponse(responseCode = "204", description = "Specific prospect successfully deleted"),
             @ApiResponse(responseCode = "404", description = "Prospect not found", content = @Content)
     })
+    @Transactional
     public ResponseEntity<Void> delete(@PathVariable Long prospectId) throws Exception{
         this.prospectService.delete(prospectId);
 
