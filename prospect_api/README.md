@@ -4,5 +4,5 @@ Esse repositório hospeda o código `back-end` desafio para o Bootcamp Cielo Dev
 
 ## Notas
 
-O projeto utilizou a versão `19` do `JDK` em seu desenvolvimento, `maven` como gerenciador de pacotes e `Intellij` como `IDE`
+O projeto utilizou a versão `17` do `JDK` em seu desenvolvimento, `maven` como gerenciador de pacotes e `Intellij` como `IDE`
 
