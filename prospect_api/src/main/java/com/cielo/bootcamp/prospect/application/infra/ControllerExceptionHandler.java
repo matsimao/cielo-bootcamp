@@ -19,7 +19,7 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ExceptionDTO> threatDuplicateEntry(DataIntegrityViolationException exception) {
-        ExceptionDTO exceptionDTO = new ExceptionDTO("Duplicate prospect", 400);
+        ExceptionDTO exceptionDTO = new ExceptionDTO("Duplicate prospect", 409);
         return ResponseEntity.badRequest().body(exceptionDTO);
     }
 

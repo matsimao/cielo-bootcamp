@@ -1,4 +1,4 @@
-package com.cielo.bootcamp.prospect.domain;
+package com.cielo.bootcamp.prospect.domain.prospect;
 
 import com.cielo.bootcamp.prospect.application.dtos.ProspectDTO;
 import jakarta.persistence.*;

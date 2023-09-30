@@ -2,8 +2,8 @@ package com.cielo.bootcamp.prospect.application.services;
 
 import com.cielo.bootcamp.prospect.application.dtos.ProspectDTO;
 import com.cielo.bootcamp.prospect.application.repositories.ProspectRepository;
-import com.cielo.bootcamp.prospect.domain.ClientType;
-import com.cielo.bootcamp.prospect.domain.Prospect;
+import com.cielo.bootcamp.prospect.domain.prospect.ClientType;
+import com.cielo.bootcamp.prospect.domain.prospect.Prospect;
 import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

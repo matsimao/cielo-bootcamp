@@ -1,6 +1,6 @@
 package com.cielo.bootcamp.prospect.application.services;
 
-import com.cielo.bootcamp.prospect.domain.Prospect;
+import com.cielo.bootcamp.prospect.domain.prospect.Prospect;
 import org.springframework.stereotype.Service;
 import java.util.LinkedList;
 import java.util.List;

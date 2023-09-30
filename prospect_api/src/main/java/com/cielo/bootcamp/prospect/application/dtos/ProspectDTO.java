@@ -1,6 +1,6 @@
 package com.cielo.bootcamp.prospect.application.dtos;
 
-import com.cielo.bootcamp.prospect.domain.ClientType;
+import com.cielo.bootcamp.prospect.domain.prospect.ClientType;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 

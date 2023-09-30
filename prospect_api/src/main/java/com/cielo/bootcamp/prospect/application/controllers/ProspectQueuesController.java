@@ -1,7 +1,7 @@
 package com.cielo.bootcamp.prospect.application.controllers;
 
 import com.cielo.bootcamp.prospect.application.services.ProspectQueueService;
-import com.cielo.bootcamp.prospect.domain.Prospect;
+import com.cielo.bootcamp.prospect.domain.prospect.Prospect;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
