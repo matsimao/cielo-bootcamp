@@ -26,8 +26,8 @@ const Prospect = () => {
     const [listQueue, setListQueue] = useState([]);
     const [listProspects, setListProspects] = useState([]);
 
-    const [expandedQueue, setExpandedQueue] = useState(false);
-    const [expandedProspect, setExpandedProspect] = useState(true);
+    const [expandedQueue, setExpandedQueue] = useState(true);
+    const [expandedProspect, setExpandedProspect] = useState(false);
 
     const handleExpandQueueClick = (e) => {
         setExpandedQueue(!expandedQueue);
