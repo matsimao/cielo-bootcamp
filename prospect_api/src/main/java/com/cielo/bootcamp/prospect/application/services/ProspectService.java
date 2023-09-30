@@ -45,6 +45,7 @@ public class ProspectService {
             for (ObjectError error : errors.getAllErrors()) {
                 listErrors.add(error.getDefaultMessage());
             }
+            listErrors.sort(null);
             throw new Exception(String.join(", ", listErrors));
         }
     }
@@ -80,8 +81,14 @@ public class ProspectService {
         if (prospectDTO.name() != null) prospect.setName(prospectDTO.name());
         if (prospectDTO.MCC() != null) prospect.setMCC(prospectDTO.MCC());
         if (prospectDTO.document() != null) prospect.setDocument(prospectDTO.document());
-        if (prospectDTO.contactDocument() != null) prospect.setContactDocument(prospectDTO.contactDocument());
-        if (prospectDTO.contactName() != null) prospect.setContactName(prospectDTO.contactName());
+        if (prospectDTO.clientType() == ClientType.BUSINESS_CUSTOMER) {
+            if (prospectDTO.contactDocument() != null) prospect.setContactDocument(prospectDTO.contactDocument());
+            if (prospectDTO.contactName() != null) prospect.setContactName(prospectDTO.contactName());
+        } else {
+            prospect.setContactDocument(prospectDTO.document());
+            prospect.setContactName(prospectDTO.name());
+        }
+
         if (prospectDTO.contactEmail() != null) prospect.setContactEmail(prospectDTO.contactEmail());
         if (prospectDTO.clientType() != null) prospect.setClientType(prospectDTO.clientType());
 
